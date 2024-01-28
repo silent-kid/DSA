@@ -1,0 +1,71 @@
+//{ Driver Code Starts
+// C++ program to evaluate value of a postfix expression
+
+#include <bits/stdc++.h>
+using namespace std;
+
+
+// } Driver Code Ends
+class Solution
+{
+    public:
+
+    int evaluatePostfix(string S) {
+    int n = S.size();
+    stack<int> st; // Use int stack for operands
+    for (int i = 0; i < n; i++) {
+        if (S[i] >= '0' && S[i] <= '9') {
+            int operand = S[i] - '0'; // Convert character to integer
+            st.push(operand);
+        } else if (S[i] == '+') {
+            int x1 = st.top();
+            st.pop();
+            int x2 = st.top();
+            st.pop();
+            st.push(x1 + x2);
+        } else if (S[i] == '*') {
+            int x1 = st.top();
+            st.pop();
+            int x2 = st.top();
+            st.pop();
+            st.push(x1 * x2);
+        } else if (S[i] == '/') {
+            int x1 = st.top();
+            st.pop();
+            int x2 = st.top();
+            st.pop();
+            st.push(x2 / x1);
+        } else if (S[i] == '-') {
+            int x1 = st.top();
+            st.pop();
+            int x2 = st.top();
+            st.pop();
+            st.push(x2 - x1);
+        }
+    }
+    int ans = st.top();
+    return ans;
+}
+};
+
+
+//{ Driver Code Starts.
+
+// Driver program to test above functions
+int main()
+{
+    int t;
+    cin>>t;
+    cin.ignore(INT_MAX, '\n');
+    while(t--)
+    {
+        string S;
+        cin>>S;
+        Solution obj;
+    
+    cout<<obj.evaluatePostfix(S)<<endl;
+    }
+    return 0;
+}
+
+// } Driver Code Ends
